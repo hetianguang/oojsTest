@@ -44,4 +44,23 @@ describe(' test persion' ,() => {
         let tigar = new Student('Tom', 21, 2)
         expect(tigar.introduce1()).toEqual('My name is Tom. I am 21 years old. I am a Student. I am at Class 2.')
     })
+
+    it('should return teacher  is Tom. I am 21 years old. I am a Teacher. I am at Class 2.',() => {
+        function Teacher(name,age,className) {
+            Person.call(this,name,age)
+            this.className = className
+        }
+        Teacher.prototype = new Person();
+        Teacher.prototype.introduce1 = function() {
+            if(this.className === undefined){
+                return this.basic_introduce()+' I am a Teacher. I teach No Class.'
+            }
+            return (this.basic_introduce()+' I am a Teacher. I am at Class '+this.className+'.')
+        }
+        let tigar = new Teacher('Tom', 21)
+        expect(tigar.introduce1()).toEqual('My name is Tom. I am 21 years old. I am a Teacher. I teach No Class.')
+
+        let tigar1 = new Teacher('Tom', 21,2)
+        expect(tigar1.introduce1()).toEqual('My name is Tom. I am 21 years old. I am a Teacher. I am at Class 2.')
+    })
 })
